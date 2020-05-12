@@ -261,10 +261,9 @@ namespace Hearthstone_Deck_Tracker.BobsBuddy
 
 			var playerHeroPower = _game.Player.Board.FirstOrDefault(x => x.IsHeroPower);
 			var opponentHeroPower = _game.Opponent.Board.FirstOrDefault(x => x.IsHeroPower);
-			input.playerPowerID = playerHeroPower?.CardId ?? "";
-			input.opponentPowerID = opponentHeroPower?.CardId ?? "";
-			//possible above should just defualt to kel'thuzad because KT doesn't have a power, but if it does have a power and hte id's "" then need below
-			input.opponentPowerID = input.opponentPowerID == "" ? "kel'thuzad" : input.opponentPowerID;
+		
+			input.SetPowerID(playerHeroPower?.CardId ?? "", opponentHeroPower?.CardId ?? "");
+			
 			input.SetHeroPower(HeroPowerUsed(playerHeroPower), HeroPowerUsed(opponentHeroPower));
 
 			input.SetupSecretsFromDbfidList(_game.Player.Secrets.Select(x => x.Card.DbfIf).ToList());
